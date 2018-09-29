@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    {% for product_id, product in products %}
+    <url>
+    	<loc>{{ product.url }}</loc>
+    	<changefreq>weekly</changefreq>
+    	<lastmod>{{ product.date_modified|date('Y-m-d\TH:i:sP') }}</lastmod>
+    	<priority>1.0</priority>
+    	{% if generate_image_data %}
+    	<image:image>
+    		<image:loc>{{ product.image_url }}</image:loc>
+    		<image:caption>{{ product.name }}</image:caption>
+    		<image:title>{{ product.name }}</image:title>
+    	</image:image>
+    	{%  endif %}
+    </url>
+    {% endfor %}
+    
+    {% for manufacturer_id, manufacturer in manufacturers %}
+    <url>
+    	<loc>{{ manufacturer.url }}</loc>
+    	<changefreq>weekly</changefreq>
+    	<priority>0.7</priority>
+    </url>
+        {% for product_id, product in manufacturer.products %}
+        <url>
+        	<loc>{{ product.url }}</loc>
+        	<changefreq>weekly</changefreq>
+        	<priority>1.0</priority>
+        </url>
+        {% endfor %}
+    {% endfor %}
+    
+    {% for category_id, category in categories %}
+    <url>
+    	<loc>{{ category.url }}</loc>
+    	<changefreq>weekly</changefreq>
+    	<priority>0.7</priority>
+    </url>
+        {% for product_id, product in category.products %}
+        <url>
+        	<loc>{{ product.url }}</loc>
+        	<changefreq>weekly</changefreq>
+        	<priority>1.0</priority>
+        </url>
+        {% endfor %}
+    {% endfor %}
+    
+    {% for info_id, information in informations %}
+    <url>
+    	<loc>{{ information.url }}</loc>
+    	<changefreq>weekly</changefreq>
+    	<priority>0.5</priority>
+    </url>
+    {% endfor %}
+</urlset>

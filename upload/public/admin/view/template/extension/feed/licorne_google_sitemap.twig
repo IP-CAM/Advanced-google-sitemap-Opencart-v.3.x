@@ -1,0 +1,200 @@
+{{ header }}
+{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<button type="submit" form="form-feed" data-toggle="tooltip"
+					title="{{ button_save }}" class="btn btn-primary">
+					<i class="fa fa-save"></i>
+				</button>
+				<a href="{{ cancel }}" data-toggle="tooltip"
+					title="{{ button_cancel }}" class="btn btn-default"><i
+					class="fa fa-reply"></i></a>
+			</div>
+			<h1>
+				{{ heading_title }}
+			</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+		<div class="alert alert-danger alert-dismissible">
+			<i class="fa fa-exclamation-circle"></i>
+			{{ error_warning }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		{% endif %}
+		{% if success %}
+		<div class="alert alert-success alert-dismissible">
+			<i class="fa fa-check-circle"></i>
+			{{ success }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-exchange"></i>
+					{{ heading_title }}
+				</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab-settings" data-toggle="tab">{{ text_sitemap_settings }}</a></li>
+					<li><a href="#tab-cache" data-toggle="tab">{{ text_sitemap_cache }}</a></li>
+					<li><a href="#tab-security" data-toggle="tab">{{ text_sitemap_security }}</a></li>
+				</ul>
+				<form action="{{ action }}" method="post"
+					enctype="multipart/form-data" id="form-feed"
+					class="form-horizontal">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-settings">
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+								<div class="col-sm-10">
+									<select name="feed_licorne_google_sitemap_status"
+										id="input-status" class="form-control">
+										<option value="1" {% if feed_licorne_google_sitemap_status %}
+											selected="selected" {% endif %}>{{ text_enabled }}</option>
+										<option value="0"
+											{% if not feed_licorne_google_sitemap_status %}
+											selected="selected" {% endif %}>{{ text_disabled }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-add-image-url">{{ entry_add_image_url }}</label>
+								<div class="col-sm-10">
+									<select name="feed_licorne_google_sitemap_add_image_url"
+										id="input-add-image-url" class="form-control">
+										<option value="1"
+											{% if feed_licorne_google_sitemap_add_image_url %}
+											selected="selected" {% endif %}>{{ text_enabled }}</option>
+										<option value="0"
+											{% if not feed_licorne_google_sitemap_add_image_url %}
+											selected="selected" {% endif %}>{{ text_disabled }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-collect-manufacturer_products">{{ entry_collect_manufacturer_products }}</label>
+								<div class="col-sm-10">
+									<select
+										name="feed_licorne_google_sitemap_collect_manufacturer_products"
+										id="input-collect-manufacturer-products" class="form-control">
+										<option value="1"
+											{% if feed_licorne_google_sitemap_collect_manufacturer_products %}
+											selected="selected" {% endif %}>{{ text_enabled }}</option>
+										<option value="0"
+											{% if not feed_licorne_google_sitemap_collect_manufacturer_products %}
+											selected="selected" {% endif %}>{{ text_disabled }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-collect-category-products">{{ entry_collect_category_products }}</label>
+								<div class="col-sm-10">
+									<select
+										name="feed_licorne_google_sitemap_collect_category_products"
+										id="input-collect-category_products" class="form-control">
+										<option value="1"
+											{% if feed_licorne_google_sitemap_collect_category_products %}
+											selected="selected" {% endif %}>{{ text_enabled }}</option>
+										<option value="0"
+											{% if not feed_licorne_google_sitemap_collect_category_products %}
+											selected="selected" {% endif %}>{{ text_disabled }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-use-filesystem-cache">{{ entry_max_execution_time }}</label>
+								<div class="col-sm-10">
+									<select name="feed_licorne_google_sitemap_max_execution_time"
+										id="input-use-filesystem-cache" class="form-control">
+										{% for i in 1..4 %}
+										<option value="{{ i }}"
+											{% if feed_licorne_google_sitemap_max_execution_time == i %}
+											selected="selected" {% endif %}>{{ i }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+            				<div class="form-group">
+            					<label class="col-sm-2 control-label" for="input-data-feed">{{ entry_data_feed }}</label>
+            					<div class="col-sm-10">
+            						<textarea rows="5" readonly id="input-data-feed"
+            							class="form-control">{{ data_feed }}</textarea>
+            					</div>
+            				</div>
+						</div>
+						<div class="tab-pane" id="tab-cache">
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-use-filesystem-cache">{{ entry_use_filesystem_cache }}</label>
+								<div class="col-sm-10">
+									<select name="feed_licorne_google_sitemap_use_filesystem_cache"
+										id="input-use-filesystem-cache" class="form-control">
+										<option value="1"
+											{% if feed_licorne_google_sitemap_use_filesystem_cache %}
+											selected="selected" {% endif %}>{{ text_enabled }}</option>
+										<option value="0"
+											{% if not feed_licorne_google_sitemap_use_filesystem_cache %}
+											selected="selected" {% endif %}>{{ text_disabled }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-sitemap-cache-path">{{ entry_sitemap_cache_path }}</label>
+								<div class="col-sm-10">
+									<input name="feed_licorne_google_sitemap_sitemap_cache_path"
+										id="input-sitemap-cache-path" class="form-control" value="{{ feed_licorne_google_sitemap_sitemap_cache_path }}" readonly="true">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<a id="clear-cached-feed" class="btn btn-danger"
+										href="#"><i
+										class="fa fa-eraser fa-lg"></i> {{ text_sitemap_clear_cache }}</a>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-security">
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									for="input-sitemap-token">{{ entry_sitemap_token }}</label>
+								<div class="col-sm-10">
+									<input name="feed_licorne_google_sitemap_token"
+										id="input-sitemap-token" class="form-control" value="{{ feed_licorne_google_sitemap_token }}"
+										maxlength="30">
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$('#clear-cached-feed').click(function(e) {
+	e.preventDefault()
+	jQuery.ajax({
+		url : '{{ clear_cached_sitemap_feed_url }}'.replace('&amp;','&'),
+		success : function(data) {
+			alert('{{ text_sitemap_cache_cleared }}');
+		} 
+	});
+});
+</script>
+{{ footer }}
