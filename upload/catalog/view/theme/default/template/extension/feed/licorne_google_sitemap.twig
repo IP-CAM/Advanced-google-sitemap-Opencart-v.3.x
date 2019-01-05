@@ -4,7 +4,7 @@
     <url>
     	<loc>{{ product.url }}</loc>
     	<changefreq>weekly</changefreq>
-    	<lastmod>{{ product.date_modified|date('Y-m-d\TH:i:sP') }}</lastmod>
+    	<lastmod>{{ product.date_modified|date('Y-m-d') }}</lastmod>
     	<priority>1.0</priority>
     	{% if generate_image_data %}
     	<image:image>
